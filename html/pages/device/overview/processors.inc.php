@@ -45,7 +45,7 @@ if (count($processors)) {
             $graph_array['width']  = 80;
             $graph_array['height'] = 20;
             $graph_array['bg']     = 'ffffff00'; // the 00 at the end makes the area transparent.
-            $minigraph =  generate_lazy_graph_tag($graph_array);
+            $minigraph =  generate_graph_tag($graph_array);
 
             echo '<tr>
                 <td class="col-md-4">'.overlib_link($link, $text_descr, $overlib_content).'</td>
@@ -75,7 +75,7 @@ if (count($processors)) {
         //Generate average cpu graph
         $graph_array['device'] = $device['device_id'];
         $graph_array['type']   = 'device_processor';
-        $graph = generate_lazy_graph_tag($graph_array);
+        $graph = generate_graph_tag($graph_array);
 
         //Generate link to graphs
         $link_array         = $graph_array;

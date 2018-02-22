@@ -27,7 +27,7 @@ if ($ports['total']) {
     $graph_array['type']   = 'device_bits';
     $graph_array['from']   = $config['time']['day'];
     $graph_array['legend'] = 'no';
-    $graph = generate_lazy_graph_tag($graph_array);
+    $graph = generate_graph_tag($graph_array);
 
     #Generate tooltip
     $graph_array['width'] = 210;

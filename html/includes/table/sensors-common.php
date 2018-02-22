@@ -105,7 +105,7 @@ foreach (dbFetchRows($sql, $param) as $sensor) {
     $graph_array['bg']     = 'ffffff00';
     // the 00 at the end makes the area transparent.
     $graph_array['from'] = $config['time']['day'];
-    $sensor_minigraph =  generate_lazy_graph_tag($graph_array);
+    $sensor_minigraph =  generate_graph_tag($graph_array);
 
     $sensor['sensor_descr'] = substr($sensor['sensor_descr'], 0, 48);
 

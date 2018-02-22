@@ -236,7 +236,7 @@ if ($format == "graph") {
 
                 echo '<div class="devices-overlib-box" style="min-width:' . ($width + 90) . '; max-width: ' . ($width + 90) . '">';
                 echo '<div class="panel panel-default">';
-                echo overlib_link($overlib_link, generate_lazy_graph_tag($graph_array_new), generate_graph_tag($graph_array_zoom), null);
+                echo overlib_link($overlib_link, generate_graph_tag($graph_array_new), generate_graph_tag($graph_array_zoom), null);
                 echo "</div></div>\n\n";
             }
         }

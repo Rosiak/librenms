@@ -89,7 +89,7 @@ if (!$auth) {
         echo('<td align=center>');
         echo('<b>'.$text.'</b><br>');
         echo('<a href="'.$link.'">');
-        echo generate_lazy_graph_tag($graph_array);
+        echo generate_graph_tag($graph_array);
         echo('</a>');
         echo('</td>');
     }
@@ -152,7 +152,7 @@ if (!$auth) {
     echo generate_graph_js_state($graph_array);
 
     echo('<div style="width: '.$graph_array['width'].'; margin: auto;"><center>');
-    echo generate_lazy_graph_tag($graph_array);
+    echo generate_graph_tag($graph_array);
     echo("</center></div>");
 
     if (isset($config['graph_descr'][$vars['type']])) {
