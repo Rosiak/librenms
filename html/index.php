@@ -323,6 +323,12 @@ if (is_array($msg_box)) {
     echo("</script>");
 }
 
+if ($config['enable_lazy_load'] === true) {
+    echo("<script>
+          var myLazyLoad = new LazyLoad();
+          </script>");
+}
+
 if (is_array($sql_debug) && is_array($php_debug) && $_SESSION['authenticated'] === true) {
     require_once "includes/print-debug.php";
 }
