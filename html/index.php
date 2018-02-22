@@ -325,7 +325,7 @@ if (is_array($msg_box)) {
 
 if ($config['enable_lazy_load'] === true) {
     echo("<script>
-          var myLazyLoad = new LazyLoad();
+          new LazyLoad();
           </script>");
 }
 
