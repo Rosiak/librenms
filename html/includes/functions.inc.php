@@ -538,39 +538,6 @@ function generate_graph_tag($args)
     return '<img src="graph.php?' . implode('&amp;', $urlargs) . '" border="0" />';
 }//end generate_graph_tag()
 
-function generate_lazy_graph_tag($args)
-{
-    global $config;
-    $urlargs = array();
-    $w = 0;
-    $h = 0;
-    foreach ($args as $key => $arg) {
-        switch (strtolower($key)) {
-            case 'width':
-                $w = $arg;
-                break;
-            case 'height':
-                $h = $arg;
-                break;
-            case 'lazy_w':
-                $lazy_w = $arg;
-                break;
-        }
-        $urlargs[] = $key . "=" . urlencode($arg);
-    }
-
-    if (isset($lazy_w)) {
-        $w = $lazy_w;
-    }
-
-    if ($config['enable_lazy_load'] === true) {
-        return '<img class="lazy img-responsive" data-original="graph.php?' . implode('&amp;', $urlargs) . '" border="0" />';
-    } else {
-        return '<img class="img-responsive" src="graph.php?' . implode('&amp;', $urlargs) . '" border="0" />';
-    }
-}//end generate_lazy_graph_tag()
-
-
 function generate_graph_js_state($args)
 {
     // we are going to assume we know roughly what the graph url looks like here.
