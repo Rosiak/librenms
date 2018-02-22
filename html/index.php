@@ -156,7 +156,6 @@ foreach ((array)$config['webui']['custom_css'] as $custom_css) {
     <?php
     if ($config['enable_lazy_load'] === true) {
     ?>
-  <script src="js/jquery.lazyload.min.js"></script>
   <script src="js/lazyload.js"></script>
     <?php
     }

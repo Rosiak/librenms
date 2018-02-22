@@ -1,36 +1,73 @@
-/*
-   * LibreNMS module to initialize and support lazy loading of graph images
-   *
-   * Copyright (c) 2015 Travis Hegner <http://travishegner.com/>
-   *
-   * This program is free software: you can redistribute it and/or modify it
-   * under the terms of the GNU General Public License as published by the
-   * Free Software Foundation, either version 3 of the License, or (at your
-   * option) any later version.  Please see LICENSE.txt at the top level of
-   * the source code distribution for details.
-   */
-$(document).ready(function(){
-    
-    //initialize jquery lazyload for all '.lazy' img tags
-    $("img.lazy").load(lazyload_done).lazyload({
-        effect: "fadeIn",
-        threshold: 300,
-        placeholder: ""
-    });
+import defaultSettings from "./lazyload.defaults";
+import purgeElements from "./lazyload.purge";
+import autoInitialize from "./lazyload.autoInitialize";
+import revealElement from "./lazyload.reveal";
 
+const LazyLoad = function (instanceSettings, elements) {
+    this._settings = Object.assign({}, defaultSettings, instanceSettings);
+    this._setObserver();
+    this.update(elements);
+};
 
-    //re-initializes images loaded after an ajax call
-    $(document).ajaxStop(function() {
-        $("img.lazy").load(lazyload_done).lazyload({
-            effect: "fadeIn",
-            threshold: 300,
-            placeholder: ""
+LazyLoad.prototype = {
+    _setObserver: function () {
+        if (!("IntersectionObserver" in window)) {
+            return;
+        }
+
+        const settings = this._settings;
+        const onIntersection = (entries) => {
+            entries.forEach((entry) => {
+                // entry.isIntersecting is null on some versions of MS Edge
+                // entry.intersectionRatio can be 0 on some intersecting elements
+                if (entry.isIntersecting || entry.intersectionRatio > 0) {
+                    let element = entry.target;
+                    revealElement(element, settings);
+                    this._observer.unobserve(element);
+                }
+            });
+            this._elements = purgeElements(this._elements);
+        };
+        this._observer = new IntersectionObserver(onIntersection, {
+            root: settings.container === document ? null : settings.container,
+            rootMargin: settings.threshold + "px"
         });
-    });
-});
+    },
 
-function lazyload_done() {
-    //Since RRD takes the width and height params for only the canvas, we must unset them 
-    //from the final (larger) image to prevent the browser from resizing them.
-    $(this).removeAttr('height').removeClass('lazy');
+    update: function (elements) {
+        const settings = this._settings;
+        const nodeSet = elements || settings.container.querySelectorAll(settings.elements_selector);
+
+        this._elements = purgeElements(Array.prototype.slice.call(nodeSet)); // nodeset to array for IE compatibility
+        if (this._observer) {
+            this._elements.forEach(element => {
+                this._observer.observe(element);
+            });
+            return;
+        }
+        // Fallback: load all elements at once
+        this._elements.forEach(element => {
+            revealElement(element, settings);
+        });
+        this._elements = purgeElements(this._elements);
+    },
+
+    destroy: function () {
+        if (this._observer) {
+            purgeElements(this._elements).forEach(element => {
+                this._observer.unobserve(element);
+            });
+            this._observer = null;
+        }
+        this._elements = null;
+        this._settings = null;
+    }
 }
+
+/* Automatic instances creation if required (useful for async script loading!) */
+let autoInitOptions = window.lazyLoadOptions;
+if (autoInitOptions) {
+    autoInitialize(LazyLoad, autoInitOptions);
+}
+
+export default LazyLoad;
