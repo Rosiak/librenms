@@ -145,7 +145,7 @@ foreach ((array)$config['webui']['custom_css'] as $custom_css) {
   <script src="js/jquery.cycle2.min.js"></script>
   <script src="js/moment.min.js"></script>
   <script src="js/bootstrap-datetimepicker.min.js"></script>
-  <script src="js/typeahead.bundle.min.js"></script>
+  <script src="js/bootstrap3-typeahead.min.js"></script>
   <script src="js/jquery-ui.min.js"></script>
   <script src="js/tagmanager.js"></script>
   <script src="js/mktree.js"></script>
