@@ -25,7 +25,7 @@ if (!Auth::check()) {
 
 set_debug($_REQUEST['debug']);
 
-$type = mres($_REQUEST['type']);
+$type = $_REQUEST['type'];
 
 if (isset($type) && file_exists("includes/list/$type.inc.php")) {
     header('Content-type: application/json');

@@ -17,7 +17,7 @@ header('Content-type: application/json');
 $status    = 'error';
 $message   = 'unknown error';
 
-$device_id = mres($_POST['device_id']);
+$device_id = $_POST['device_id'];
 $notes = $_POST['notes'];
 
 if (!Auth::user()->hasGlobalAdmin()) {

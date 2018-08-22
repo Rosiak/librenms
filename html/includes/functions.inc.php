@@ -322,15 +322,15 @@ function generate_device_link($device, $text = null, $vars = array(), $start = 0
     }
 
     if ($device['os']) {
-        $contents .= ' - ' . mres($config['os'][$device['os']]['text']);
+        $contents .= ' - ' . $config['os'][$device['os']]['text'];
     }
 
     if ($device['version']) {
-        $contents .= ' ' . mres($device['version']);
+        $contents .= ' ' . $device['version'];
     }
 
     if ($device['features']) {
-        $contents .= ' (' . mres($device['features']) . ')';
+        $contents .= ' (' . $device['features'] . ')';
     }
 
     if (isset($device['location'])) {

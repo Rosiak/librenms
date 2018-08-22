@@ -80,7 +80,7 @@ class LdapAuthorizationAuthorizer extends AuthorizerBase
     public function authenticate($username, $password)
     {
         if (isset($_SERVER['REMOTE_USER'])) {
-            $_SESSION['username'] = mres($_SERVER['REMOTE_USER']);
+            $_SESSION['username'] = $_SERVER['REMOTE_USER'];
 
             if ($this->userExists($_SESSION['username'])) {
                 return true;

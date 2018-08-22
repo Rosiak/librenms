@@ -2,7 +2,7 @@
 
 use LibreNMS\Authentication\Auth;
 
-$bill_id = mres($vars['bill_id']);
+$bill_id = $vars['bill_id'];
 
 if (Auth::user()->hasGlobalAdmin()) {
     include 'pages/bill/actions.inc.php';

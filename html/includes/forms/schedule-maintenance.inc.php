@@ -27,22 +27,22 @@ if ($sub_type == 'new-maintenance') {
     $update = 0;
     $message = '';
 
-    $schedule_id = mres($_POST['schedule_id']);
+    $schedule_id = $_POST['schedule_id'];
     if ($schedule_id > 0) {
         $update = 1;
     }
 
-    $title = mres($_POST['title']);
-    $notes = mres($_POST['notes']);
-    $recurring = mres($_POST['recurring']);
-    $start_recurring_dt = mres($_POST['start_recurring_dt']);
-    $end_recurring_dt = mres($_POST['end_recurring_dt']);
-    $start_recurring_hr = mres($_POST['start_recurring_hr']);
-    $end_recurring_hr = mres($_POST['end_recurring_hr']);
-    $recurring_day = mres($_POST['recurring_day']);
-    $start = mres($_POST['start']);
-    $end   = mres($_POST['end']);
-    $maps  = mres($_POST['maps']);
+    $title = $_POST['title'];
+    $notes = $_POST['notes'];
+    $recurring = $_POST['recurring'];
+    $start_recurring_dt = $_POST['start_recurring_dt'];
+    $end_recurring_dt = $_POST['end_recurring_dt'];
+    $start_recurring_hr = $_POST['start_recurring_hr'];
+    $end_recurring_hr = $_POST['end_recurring_hr'];
+    $recurring_day = $_POST['recurring_day'];
+    $start = $_POST['start'];
+    $end   = $_POST['end'];
+    $maps  = $_POST['maps'];
 
     if (empty($title)) {
         $message = 'Missing title<br />';
@@ -157,7 +157,7 @@ if ($sub_type == 'new-maintenance') {
         'message' => $message,
     );
 } elseif ($sub_type == 'parse-maintenance') {
-    $schedule_id = mres($_POST['schedule_id']);
+    $schedule_id = $_POST['schedule_id'];
     $schedule    = dbFetchRow('SELECT * FROM `alert_schedule` WHERE `schedule_id`=?', array($schedule_id));
     $items       = array();
     foreach (dbFetchRows('SELECT `target` FROM `alert_schedule_items` WHERE `schedule_id`=?', array($schedule_id)) as $targets) {
@@ -179,7 +179,7 @@ if ($sub_type == 'new-maintenance') {
         'targets'                => $items,
     );
 } elseif ($sub_type == 'del-maintenance') {
-    $schedule_id = mres($_POST['del_schedule_id']);
+    $schedule_id = $_POST['del_schedule_id'];
     dbDelete('alert_schedule_items', '`schedule_id`=?', array($schedule_id));
     dbDelete('alert_schedule', '`schedule_id`=?', array($schedule_id));
     $status   = 'ok';

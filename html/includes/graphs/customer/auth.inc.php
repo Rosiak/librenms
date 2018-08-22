@@ -4,7 +4,7 @@
 use LibreNMS\Authentication\Auth;
 
 if (Auth::user()->hasGlobalRead() || $auth) {
-    $id    = mres($vars['id']);
+    $id    = $vars['id'];
     $title = generate_device_link($device);
     $auth  = true;
 }

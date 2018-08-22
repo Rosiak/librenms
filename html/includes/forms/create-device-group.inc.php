@@ -22,8 +22,8 @@ require_once '../includes/device-groups.inc.php';
 
 $pattern  = $_POST['patterns'];
 $group_id = $_POST['group_id'];
-$name     = mres($_POST['name']);
-$desc     = mres($_POST['desc']);
+$name     = $_POST['name'];
+$desc     = $_POST['desc'];
 
 if (is_array($pattern)) {
     $pattern = implode(' ', $pattern);

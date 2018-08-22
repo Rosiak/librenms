@@ -38,11 +38,11 @@ var syslog_grid = $("#syslog").bootgrid({
     {
         return {
             id: "syslog",
-            device: "'.mres($vars['device']) .'",
-            program: "'.mres($vars['program']).'",
-            priority: "'.mres($vars['priority']).'",
-            to: "'.mres($vars['to']).'",
-            from: "'.mres($vars['from']).'",
+            device: "'. $vars['device'] .'",
+            program: "'. $vars['program'] .'",
+            priority: "'. $vars['priority'] .'",
+            to: "'. $vars['to'] .'",
+            from: "'. $vars['from'] .'",
         };
     },
     url: "ajax_table.php"

@@ -75,7 +75,7 @@ if (!empty($filter_device)) {
 }
 
 if (empty($filter_device) && isset($_POST['hostname'])) {
-    $filter_device = mres($_POST['hostname']);
+    $filter_device = $_POST['hostname'];
 }
 
 if (isset($config['graylog']['timezone'])) {
@@ -128,7 +128,7 @@ $tmp_output .= '
             return {
                 id: "graylog",
                 hostname: "' . (isset($filter_device) ? $filter_device : '') . '",
-                range: "' . (isset($_POST['range']) ? mres($_POST['range']) : '')  . '"
+                range: "' . (isset($_POST['range']) ? $_POST['range'] : '')  . '"
             };
         },
         url: "ajax_table.php",

@@ -22,8 +22,8 @@ function SqlSNMP($table, $cmib, $device)
         $neOpState  = $entry['enmsNeOpState'];
         
         if (dbFetchCell("SELECT COUNT(id) FROM $table WHERE `device_id` = ? AND `neID` = ?", array($device['device_id'], $index)) == 0) {
-            dbInsert(array('device_id' => $device['device_id'], 'neID' => $index, 'neType' => mres($neType), 'neName' => mres($neName), 'neLocation' => mres($neLocation), 'neAlarm' => mres($neAlarm), 'neOpMode' => mres($neOpMode), 'neOpState' => mres($neOpState)), $table);
-            log_event("Coriant $cmib Hardware ". mres($neType) . " : " . mres($neName) . " ($index) at " . mres($neLocation) . " Discovered", $device, 'system', 2);
+            dbInsert(array('device_id' => $device['device_id'], 'neID' => $index, 'neType' => $neType, 'neName' => $neName, 'neLocation' => $neLocation, 'neAlarm' => $neAlarm, 'neOpMode' => $neOpMode, 'neOpState' => $neOpState), $table);
+            log_event("Coriant $cmib Hardware ". $neType . " : " . $neName . " ($index) at " . $neLocation . " Discovered", $device, 'system', 2);
             echo '+';
         } else {
             echo '.';
@@ -37,7 +37,7 @@ function SqlSNMP($table, $cmib, $device)
         d_echo($db_ne);
         if (!in_array($db_ne['neID'], $c_list)) {
             dbDelete($table, '`id` = ?', array($db_ne['id']));
-            log_event("Coriant $cmib Hardware ".mres($db_ne['neName']).' at ' . mres($db_ne['neLocation']) . ' Removed', $device, 'system', $db_ne['neID']);
+            log_event("Coriant $cmib Hardware ". $db_ne['neName'] .' at ' . $db_ne['neLocation'] . ' Removed', $device, 'system', $db_ne['neID']);
             echo '-';
         }
     }

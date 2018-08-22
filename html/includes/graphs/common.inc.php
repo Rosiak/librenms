@@ -1,15 +1,15 @@
 <?php
 
 if ($_GET['from']) {
-    $from = mres($_GET['from']);
+    $from = $_GET['from'];
 }
 
 if ($_GET['to']) {
-    $to = mres($_GET['to']);
+    $to = $_GET['to'];
 }
 
 if ($_GET['width']) {
-    $width = mres($vars['width']);
+    $width = $vars['width'];
 }
 
 if ($config['trim_tobias']) {
@@ -17,7 +17,7 @@ if ($config['trim_tobias']) {
 }
 
 if ($_GET['height']) {
-    $height = mres($vars['height']);
+    $height = $vars['height'];
 }
 
 if ($_GET['inverse']) {
@@ -83,11 +83,11 @@ $rrd_options .= ' -E --start '.$from.' --end '.$to.' --width '.$width.' --height
 $rrd_options .= $config['rrdgraph_def_text'];
 
 if ($_GET['bg']) {
-    $rrd_options .= ' -c CANVAS#'.mres($_GET['bg']).' ';
+    $rrd_options .= ' -c CANVAS#'. $_GET['bg'] .' ';
 }
 
 if ($_GET['font']) {
-    $rrd_options .= ' -c FONT#'.mres($_GET['font']).' ';
+    $rrd_options .= ' -c FONT#'. $_GET['font'] .' ';
 }
 
 // $rrd_options .= " -c BACK#FFFFFF";

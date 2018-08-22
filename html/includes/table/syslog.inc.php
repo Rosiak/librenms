@@ -19,7 +19,7 @@ $where = '1';
 $param = array();
 
 if (!empty($vars['searchPhrase'])) {
-    $where .= ' AND S.msg LIKE "%'.mres($vars['searchPhrase']).'%"';
+    $where .= ' AND S.msg LIKE "%'. $vars['searchPhrase'] .'%"';
 }
 
 if ($vars['program']) {

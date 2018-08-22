@@ -25,8 +25,8 @@ if (is_numeric($vars['port_id'])) {
 }
 
 if (isset($vars['searchPhrase']) && !empty($vars['searchPhrase'])) {
-    $ip_search = '%'.mres(trim($vars['searchPhrase'])).'%';
-    $mac_search = '%'.str_replace(array(':', ' ', '-', '.', '0x'), '', mres($vars['searchPhrase'])).'%';
+    $ip_search = '%'. trim($vars['searchPhrase']) .'%';
+    $mac_search = '%'.str_replace(array(':', ' ', '-', '.', '0x'), '', $vars['searchPhrase']).'%';
 
     if (isset($vars['searchby']) && $vars['searchby'] == 'ip') {
         $sql    .= ' AND `ipv4_address` LIKE ?';

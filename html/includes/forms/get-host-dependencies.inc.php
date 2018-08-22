@@ -53,7 +53,7 @@ if (!Auth::user()->hasGlobalAdmin()) {
 
 
             if (isset($_POST['format']) && !empty($_POST['searchPhrase'])) {
-                $searchphrase = '%'.mres($_POST['searchPhrase']).'%';
+                $searchphrase = '%'. $_POST['searchPhrase'] .'%';
                 $search_arr = array($searchphrase, $searchphrase, $searchphrase);
                 $device_deps = dbFetchRows($deps_query, $search_arr);
                 $rec_count = dbFetchCell($count_query, $search_arr);

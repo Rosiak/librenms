@@ -302,7 +302,7 @@ function list_devices()
     // This will return a list of devices
     $order = $_GET['order'];
     $type  = $_GET['type'];
-    $query = mres($_GET['query']);
+    $query = $_GET['query'];
     $param = array();
 
     if (empty($order)) {
@@ -390,15 +390,15 @@ function add_device()
     }
 
     $hostname     = $data['hostname'];
-    $port         = $data['port'] ? mres($data['port']) : $config['snmp']['port'];
-    $transport    = $data['transport'] ? mres($data['transport']) : 'udp';
-    $poller_group = $data['poller_group'] ? mres($data['poller_group']) : 0;
+    $port         = $data['port'] ? $data['port'] : $config['snmp']['port'];
+    $transport    = $data['transport'] ? $data['transport'] : 'udp';
+    $poller_group = $data['poller_group'] ? $data['poller_group'] : 0;
     $force_add    = $data['force_add'] ? true : false;
     $snmp_disable = ($data['snmp_disable']);
     if ($snmp_disable) {
         $additional = array(
-            'os'           => $data['os'] ? mres($data['os']) : 'ping',
-            'hardware'     => $data['hardware'] ? mres($data['hardware']) : '',
+            'os'           => $data['os'] ? $data['os'] : 'ping',
+            'hardware'     => $data['hardware'] ? $data['hardware'] : '',
             'snmp_disable' => 1,
         );
     } elseif ($data['version'] == 'v1' || $data['version'] == 'v2c') {
@@ -406,15 +406,15 @@ function add_device()
             $config['snmp']['community'] = array($data['community']);
         }
 
-        $snmpver = mres($data['version']);
+        $snmpver = $data['version'];
     } elseif ($data['version'] == 'v3') {
         $v3 = array(
-            'authlevel'  => mres($data['authlevel']),
-            'authname'   => mres($data['authname']),
-            'authpass'   => mres($data['authpass']),
-            'authalgo'   => mres($data['authalgo']),
-            'cryptopass' => mres($data['cryptopass']),
-            'cryptoalgo' => mres($data['cryptoalgo']),
+            'authlevel'  => $data['authlevel'],
+            'authname'   => $data['authname'],
+            'authpass'   => $data['authpass'],
+            'authalgo'   => $data['authalgo'],
+            'cryptopass' => $data['cryptopass'],
+            'cryptoalgo' => $data['cryptoalgo'],
         );
 
         array_push($config['snmp']['v3'], $v3);
@@ -1014,7 +1014,7 @@ function list_alert_rules()
     $sql    = '';
     $param  = array();
     if (isset($router['id']) && $router['id'] > 0) {
-        $rule_id = mres($router['id']);
+        $rule_id = $router['id'];
         $sql     = 'WHERE id=?';
         $param   = array($rule_id);
     }
@@ -1030,14 +1030,14 @@ function list_alerts()
     $app    = \Slim\Slim::getInstance();
     $router = $app->router()->getCurrentRoute()->getParams();
     if (isset($_GET['state'])) {
-        $param = array(mres($_GET['state']));
+        $param = array($_GET['state']);
     } else {
         $param = array('1');
     }
 
     $sql = '';
     if (isset($router['id']) && $router['id'] > 0) {
-        $alert_id = mres($router['id']);
+        $alert_id = $router['id'];
         $sql      = 'AND `A`.id=?';
         array_push($param, $alert_id);
     }
@@ -1053,8 +1053,8 @@ function add_edit_rule()
     $app  = \Slim\Slim::getInstance();
     $data = json_decode(file_get_contents('php://input'), true);
 
-    $rule_id = mres($data['rule_id']);
-    $device_id = mres($data['device_id']);
+    $rule_id = $data['rule_id'];
+    $device_id = $data['device_id'];
     if (empty($device_id) && !isset($rule_id)) {
         api_error(400, 'Missing the device id or global device id (-1)');
     }
@@ -1068,12 +1068,12 @@ function add_edit_rule()
         api_error(400, 'Missing the alert rule');
     }
 
-    $name = mres($data['name']);
+    $name = $data['name'];
     if (empty($name)) {
         api_error(400, 'Missing the alert rule name');
     }
 
-    $severity = mres($data['severity']);
+    $severity = $data['severity'];
     $sevs     = array(
         'ok',
         'warning',
@@ -1083,14 +1083,14 @@ function add_edit_rule()
         api_error(400, 'Missing the severity');
     }
 
-    $disabled = mres($data['disabled']);
+    $disabled = $data['disabled'];
     if ($disabled != '0' && $disabled != '1') {
         $disabled = 0;
     }
 
-    $count     = mres($data['count']);
-    $mute      = mres($data['mute']);
-    $delay     = mres($data['delay']);
+    $count     = $data['count'];
+    $mute      = $data['mute'];
+    $delay     = $data['delay'];
     $delay_sec = convert_delay($delay);
     if ($mute == 1) {
         $mute = true;
@@ -1132,7 +1132,7 @@ function delete_rule()
     check_is_admin();
     $app     = \Slim\Slim::getInstance();
     $router  = $app->router()->getCurrentRoute()->getParams();
-    $rule_id = mres($router['id']);
+    $rule_id = $router['id'];
     if (is_numeric($rule_id)) {
         if (dbDelete('alert_rules', '`id` =  ? LIMIT 1', array($rule_id))) {
             api_success_noresult(200, 'Alert rule has been removed');
@@ -1151,7 +1151,7 @@ function ack_alert()
     global $config;
     $app      = \Slim\Slim::getInstance();
     $router   = $app->router()->getCurrentRoute()->getParams();
-    $alert_id = mres($router['id']);
+    $alert_id = $router['id'];
 
     if (!is_numeric($alert_id)) {
         api_error(400, 'Invalid alert has been provided');
@@ -1169,7 +1169,7 @@ function unmute_alert()
     global $config;
     $app      = \Slim\Slim::getInstance();
     $router   = $app->router()->getCurrentRoute()->getParams();
-    $alert_id = mres($router['id']);
+    $alert_id = $router['id'];
 
     if (!is_numeric($alert_id)) {
         api_success_noresult(200, 'Alert has been acknowledged');
@@ -1197,12 +1197,12 @@ function get_inventory()
     $params    = array();
     if (isset($_GET['entPhysicalClass']) && !empty($_GET['entPhysicalClass'])) {
         $sql     .= ' AND entPhysicalClass=?';
-        $params[] = mres($_GET['entPhysicalClass']);
+        $params[] = $_GET['entPhysicalClass'];
     }
 
     if (isset($_GET['entPhysicalContainedIn']) && !empty($_GET['entPhysicalContainedIn'])) {
         $sql     .= ' AND entPhysicalContainedIn=?';
-        $params[] = mres($_GET['entPhysicalContainedIn']);
+        $params[] = $_GET['entPhysicalContainedIn'];
     } else {
         $sql .= ' AND entPhysicalContainedIn="0"';
     }
@@ -1290,9 +1290,9 @@ function list_bills()
     $router = $app->router()->getCurrentRoute()->getParams();
 
     $bills = array();
-    $bill_id = mres($router['bill_id']);
-    $bill_ref = mres($_GET['ref']);
-    $bill_custid = mres($_GET['custid']);
+    $bill_id = $router['bill_id'];
+    $bill_ref = $_GET['ref'];
+    $bill_custid = $_GET['custid'];
     $period = $_GET['period'];
     $param = array();
 
@@ -1363,7 +1363,7 @@ function get_bill_graph()
     global $config;
     $app = \Slim\Slim::getInstance();
     $router = $app->router()->getCurrentRoute()->getParams();
-    $bill_id = mres($router['bill_id']);
+    $bill_id = $router['bill_id'];
     $graph_type = $router['graph_type'];
 
     if (!Auth::user()->hasGlobalRead()) {
@@ -1389,7 +1389,7 @@ function get_bill_graphdata()
     global $config;
     $app = \Slim\Slim::getInstance();
     $router = $app->router()->getCurrentRoute()->getParams();
-    $bill_id = mres($router['bill_id']);
+    $bill_id = $router['bill_id'];
     $graph_type = $router['graph_type'];
 
     if (!Auth::user()->hasGlobalRead()) {
@@ -1418,7 +1418,7 @@ function get_bill_history()
     global $config;
     $app = \Slim\Slim::getInstance();
     $router = $app->router()->getCurrentRoute()->getParams();
-    $bill_id = mres($router['bill_id']);
+    $bill_id = $router['bill_id'];
 
     if (!Auth::user()->hasGlobalRead()) {
         check_bill_permission($bill_id);
@@ -1438,8 +1438,8 @@ function get_bill_history_graph()
 
     $app = \Slim\Slim::getInstance();
     $router = $app->router()->getCurrentRoute()->getParams();
-    $bill_id = mres($router['bill_id']);
-    $bill_hist_id = mres($router['bill_hist_id']);
+    $bill_id = $router['bill_id'];
+    $bill_hist_id = $router['bill_hist_id'];
     $graph_type = $router['graph_type'];
 
     if (!Auth::user()->hasGlobalRead()) {
@@ -1482,8 +1482,8 @@ function get_bill_history_graphdata()
 
     $app = \Slim\Slim::getInstance();
     $router = $app->router()->getCurrentRoute()->getParams();
-    $bill_id = mres($router['bill_id']);
-    $bill_hist_id = mres($router['bill_hist_id']);
+    $bill_id = $router['bill_id'];
+    $bill_hist_id = $router['bill_hist_id'];
     $graph_type = $router['graph_type'];
 
     if (!Auth::user()->hasGlobalRead()) {
@@ -1539,34 +1539,34 @@ function check_bill_key_value($bill_key, $bill_value)
     switch ($bill_key) {
         case "bill_type":
             if (in_array($bill_value, $bill_types)) {
-                $return_value = mres($bill_value);
+                $return_value = $bill_value;
             } else {
                 api_error(400, "Invalid value for $bill_key: $bill_value. Allowed: quota,cdr");
             }
             break;
         case "bill_cdr":
             if (is_numeric($bill_value)) {
-                $return_value = mres($bill_value);
+                $return_value = $bill_value;
             } else {
                 api_error(400, "Invalid value for $bill_key. Must be numeric.");
             }
             break;
         case "bill_day":
             if ($bill_value > 0 && $bill_value <= 31) {
-                $return_value = mres($bill_value);
+                $return_value = $bill_value;
             } else {
                 api_error(400, "Invalid value for $bill_key. range: 1-31");
             }
             break;
         case "bill_quota":
             if (is_numeric($bill_value)) {
-                $return_value = mres($bill_value);
+                $return_value = $bill_value;
             } else {
                 api_error(400, "Invalid value for $bill_key. Must be numeric");
             }
             break;
         default:
-            $return_value = mres($bill_value);
+            $return_value = $bill_value;
             break;
     }
 
@@ -1715,7 +1715,7 @@ function update_device()
         }
         if (count($data['field']) == count($data['data'])) {
             for ($x=0; $x<count($data['field']); $x++) {
-                $update[mres($data['field'][$x])] = mres($data['data'][$x]);
+                $update[$data['field'][$x]] = $data['data'][$x];
             }
             if (dbUpdate($update, 'devices', '`device_id`=?', array($device_id)) >= 0) {
                 api_success_noresult(200, 'Device fields have been updated');
@@ -1725,10 +1725,12 @@ function update_device()
         } else {
             api_error(500, 'Device fields failed to be updated as the number of fields ('.count($data['field']).') does not match the supplied data ('.count($data['data']).')');
         }
-    } elseif (dbUpdate(array(mres($data['field']) => mres($data['data'])), 'devices', '`device_id`=?', array($device_id)) >= 0) {
-        api_success_noresult(200, 'Device ' . mres($data['field']) . ' field has been updated');
+    } {
+    elseif (dbUpdate(array($data['field'] => $data['data']), 'devices', '`device_id`=?', array($device_id)) >= 0) {
+        api_success_noresult(200, 'Device ' . $data['field'] . ' field has been updated');
+    }
     } else {
-        api_error(500, 'Device ' . mres($data['field']) . ' field failed to be updated');
+        api_error(500, 'Device ' . $data['field'] . ' field failed to be updated');
     }
 }
 
@@ -1957,7 +1959,7 @@ function list_arp()
     $app      = \Slim\Slim::getInstance();
     $router   = $app->router()->getCurrentRoute()->getParams();
     $ip       = $router['ip'];
-    $hostname = mres($_GET['device']);
+    $hostname = $_GET['device'];
     $total    = 0;
     if (empty($ip)) {
         api_error(400, "No valid IP provided");
@@ -2057,10 +2059,10 @@ function list_logs()
         $timestamp = 'datetime';
     }
 
-    $start = mres($_GET['start']) ?: 0;
-    $limit = mres($_GET['limit']) ?: 50;
-    $from = mres($_GET['from']);
-    $to = mres($_GET['to']);
+    $start = $_GET['start'] ?: 0;
+    $limit = $_GET['limit'] ?: 50;
+    $from = $_GET['from'];
+    $to = $_GET['to'];
 
     $count_query = 'SELECT COUNT(*)';
     $full_query = "SELECT `devices`.`hostname`, `devices`.`sysName`, `$table`.*";
@@ -2149,8 +2151,8 @@ function add_service_for_host()
     // Get parameters
     $service_type = $data['type'];
     $service_ip   = $data['ip'];
-    $service_desc = $data['desc'] ? mres($data['desc']) : '';
-    $service_param = $data['param'] ? mres($data['param']) : '';
+    $service_desc = $data['desc'] ? $data['desc'] : '';
+    $service_param = $data['param'] ? $data['param'] : '';
     $service_ignore = $data['ignore'] ? true : false; // Default false
 
     // Set the service

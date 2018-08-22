@@ -539,7 +539,7 @@ class IRCBot
             foreach ($hosts as $host) {
                 $host = preg_replace("/\*/", ".*", $host);
                 if (preg_match("/$host/", $this->getUserHost($this->data))) {
-                    $user_id = Auth::get()->getUserid(mres($nms_user));
+                    $user_id = Auth::get()->getUserid($nms_user);
                     $user = Auth::get()->getUser($user_id);
                     $this->user['name'] = $user['username'];
                     $this->user['id']   = $user_id;
@@ -596,7 +596,7 @@ class IRCBot
                 return $this->respond('Nope.');
             }
         } else {
-            $user_id = Auth::get()->getUserid(mres($params[0]));
+            $user_id = Auth::get()->getUserid($params[0]);
             $user = Auth::get()->getUser($user_id);
             if ($user['email'] && $user['username'] == $params[0]) {
                 $token = hash('gost', openssl_random_pseudo_bytes(1024));
@@ -691,9 +691,9 @@ class IRCBot
         }
 
         if ($this->user['level'] < 5) {
-            $tmp = dbFetchRows('SELECT `event_id`,`host`,`datetime`,`message`,`type` FROM `eventlog` WHERE `host` IN ('.implode(',', $this->user['devices']).') ORDER BY `event_id` DESC LIMIT '.mres($num));
+            $tmp = dbFetchRows('SELECT `event_id`,`host`,`datetime`,`message`,`type` FROM `eventlog` WHERE `host` IN ('.implode(',', $this->user['devices']).') ORDER BY `event_id` DESC LIMIT '. $num);
         } else {
-            $tmp = dbFetchRows('SELECT `event_id`,`host`,`datetime`,`message`,`type` FROM `eventlog` ORDER BY `event_id` DESC LIMIT '.mres($num));
+            $tmp = dbFetchRows('SELECT `event_id`,`host`,`datetime`,`message`,`type` FROM `eventlog` ORDER BY `event_id` DESC LIMIT '. $num);
         }
 
         foreach ($tmp as $device) {

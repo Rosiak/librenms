@@ -48,7 +48,7 @@ $pagetitle[] = 'Events';
 
 $sql = '';
 if (!empty($_POST['string'])) {
-    $sql .= " AND message LIKE '%".mres($_POST['string'])."%'";
+    $sql .= " AND message LIKE '%". $_POST['string'] ."%'";
 }
 
 $entries = dbFetchRows("SELECT *,DATE_FORMAT(datetime, '".$config['dateformat']['mysql']['compact']."') as humandate  FROM `eventlog` WHERE `host` = ? $sql ORDER BY `datetime` DESC LIMIT 0,250", array($device['device_id']));

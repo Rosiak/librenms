@@ -402,14 +402,6 @@ function truncate($substring, $max = 50, $rep = '...')
     }
 }
 
-function mres($string)
-{
-    return $string; // FIXME bleh
-    // short function wrapper because the real one is stupidly long and ugly. aesthetics.
-    global $database_link;
-    return mysqli_real_escape_string($database_link, $string);
-}
-
 function getifhost($id)
 {
     return dbFetchCell("SELECT `device_id` from `ports` WHERE `port_id` = ?", array($id));
@@ -1507,9 +1499,9 @@ function print_list($list, $format, $max = 10)
 function clean($value, $strip_tags = true)
 {
     if ($strip_tags === true) {
-        return strip_tags(mres($value));
+        return strip_tags($value);
     } else {
-        return mres($value);
+        return $value;
     }
 }
 

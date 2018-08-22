@@ -19,9 +19,9 @@ if (!Auth::user()->hasGlobalAdmin()) {
     die('ERROR: You need to be admin');
 }
 
-$config_id   = mres($_POST['config_id']);
-$action      = mres($_POST['action']);
-$config_type = mres($_POST['config_type']);
+$config_id   = $_POST['config_id'];
+$action      = $_POST['action'];
+$config_type = $_POST['config_type'];
 
 $status = 'error';
 
@@ -84,7 +84,7 @@ if (!is_numeric($config_id)) {
     $message = 'Config item has been updated:';
     $status  = 'ok';
 } else {
-    $state  = mres($_POST['config_value']);
+    $state  = $_POST['config_value'];
     $update = dbUpdate(array('config_value' => $state), 'config', '`config_id`=?', array($config_id));
     if (!empty($update) || $update == '0') {
         $message = 'Alert rule has been updated.';

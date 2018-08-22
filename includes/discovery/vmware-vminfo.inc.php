@@ -41,8 +41,8 @@ if (($device['os'] == 'vmware') || ($device['os'] == 'linux')) {
          * Check whether the Virtual Machine is already known for this host.
          */
         if (dbFetchCell("SELECT COUNT(id) FROM `vminfo` WHERE `device_id` = ? AND `vmwVmVMID` = ? AND vm_type='vmware'", array($device['device_id'], $index)) == 0) {
-            $vmid = dbInsert(array('device_id' => $device['device_id'], 'vm_type' => 'vmware', 'vmwVmVMID' => $index, 'vmwVmDisplayName' => mres($vmwVmDisplayName), 'vmwVmGuestOS' => mres($vmwVmGuestOS), 'vmwVmMemSize' => mres($vmwVmMemSize), 'vmwVmCpus' => mres($vmwVmCpus), 'vmwVmState' => mres($vmwVmState)), 'vminfo');
-            log_event(mres($vmwVmDisplayName) . " ($vmwVmMemSize GB / $vmwVmCpus vCPU) Discovered", $device, 'system', 3, $vmid);
+            $vmid = dbInsert(array('device_id' => $device['device_id'], 'vm_type' => 'vmware', 'vmwVmVMID' => $index, 'vmwVmDisplayName' => $vmwVmDisplayName, 'vmwVmGuestOS' => $vmwVmGuestOS, 'vmwVmMemSize' => $vmwVmMemSize, 'vmwVmCpus' => $vmwVmCpus, 'vmwVmState' => $vmwVmState), 'vminfo');
+            log_event($vmwVmDisplayName . " ($vmwVmMemSize GB / $vmwVmCpus vCPU) Discovered", $device, 'system', 3, $vmid);
             echo '+';
             // FIXME eventlog
         } else {
@@ -69,7 +69,7 @@ if (($device['os'] == 'vmware') || ($device['os'] == 'linux')) {
 
         if (!in_array($db_vm['vmwVmVMID'], $vmw_vmlist)) {
             dbDelete('vminfo', '`id` = ?', array($db_vm['id']));
-            log_event(mres($db_vm['vmwVmDisplayName']) . ' Removed', $device, 'system', 4, $db_vm['vmwVmVMID']);
+            log_event($db_vm['vmwVmDisplayName'] . ' Removed', $device, 'system', 4, $db_vm['vmwVmVMID']);
             echo '-';
             // FIXME eventlog
         }

@@ -38,7 +38,7 @@ if ($vars['search_type'] == 'ipv4') {
 } elseif ($vars['search_type'] == 'mac') {
     $sql  = ' FROM `ports` AS I, `devices` AS D';
     $sql .= $perms_sql;
-    $sql .= " WHERE I.device_id = D.device_id AND `ifPhysAddress` LIKE '%".str_replace(array(':', ' ', '-', '.', '0x'), '', mres($vars['address']))."%' $where ";
+    $sql .= " WHERE I.device_id = D.device_id AND `ifPhysAddress` LIKE '%".str_replace(array(':', ' ', '-', '.', '0x'), '', $vars['address'])."%' $where ";
 }//end if
 if (is_numeric($vars['device_id'])) {
     $sql    .= ' AND I.device_id = ?';

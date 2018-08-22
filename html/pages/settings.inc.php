@@ -66,8 +66,8 @@ if (Auth::user()->hasGlobalAdmin()) {
     echo '</ul></div></div><br />';
 
     if (isset($vars['sub']) && $vars['sub'] != 'Global') {
-        if (file_exists("pages/settings/" . mres($vars['sub']) . ".inc.php")) {
-            require_once "pages/settings/" . mres($vars['sub']) . ".inc.php";
+        if (file_exists("pages/settings/" . $vars['sub'] . ".inc.php")) {
+            require_once "pages/settings/" . $vars['sub'] . ".inc.php";
         } else {
             print_error("This settings page doesn't exist, please go to the main settings page");
         }

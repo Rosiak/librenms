@@ -76,8 +76,8 @@ if (!Auth::user()->hasGlobalAdmin()) {
 
     print_optionbar_end();
 
-    if (is_file("pages/device/edit/".mres($vars['section']).".inc.php")) {
-        require "pages/device/edit/".mres($vars['section']).".inc.php";
+    if (is_file("pages/device/edit/". $vars['section'] .".inc.php")) {
+        require "pages/device/edit/". $vars['section'] .".inc.php";
     }
 }
 

@@ -301,8 +301,8 @@ foreach ($app_list as $app) {
 echo '</div>';
 echo '<div class="panel-body">';
 if ($vars['app']) {
-    if (is_file('pages/apps/'.mres($vars['app']).'.inc.php')) {
-        include 'pages/apps/'.mres($vars['app']).'.inc.php';
+    if (is_file('pages/apps/'. $vars['app'] .'.inc.php')) {
+        include 'pages/apps/'. $vars['app'] .'.inc.php';
     } else {
         include 'pages/apps/default.inc.php';
     }

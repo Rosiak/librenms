@@ -4,12 +4,12 @@ use LibreNMS\Authentication\Auth;
 
 if ($_POST['editing']) {
     if (Auth::user()->hasGlobalAdmin()) {
-        $override_sysContact_bool = mres($_POST['override_sysContact']);
+        $override_sysContact_bool = $_POST['override_sysContact'];
         if (isset($_POST['sysContact'])) {
-            $override_sysContact_string = mres($_POST['sysContact']);
+            $override_sysContact_string = $_POST['sysContact'];
         }
 
-        $disable_notify = mres($_POST['disable_notify']);
+        $disable_notify = $_POST['disable_notify'];
 
         if ($override_sysContact_bool) {
             set_dev_attrib($device, 'override_sysContact_bool', '1');

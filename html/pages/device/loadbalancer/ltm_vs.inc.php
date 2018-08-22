@@ -31,8 +31,8 @@ $components = $keep;
 
 global $config;
 
-if (is_file('pages/device/loadbalancer/'.mres($vars['subtype']).'.inc.php')) {
-    include 'pages/device/loadbalancer/'.mres($vars['subtype']).'.inc.php';
+if (is_file('pages/device/loadbalancer/'. $vars['subtype'] .'.inc.php')) {
+    include 'pages/device/loadbalancer/'. $vars['subtype'] .'.inc.php';
 } else {
     include 'pages/device/loadbalancer/ltm_vs_all.inc.php';
 }//end if

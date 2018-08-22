@@ -13,8 +13,8 @@ header('Content-type: application/json');
 
 $status    = 'error';
 $message   = 'unknown error';
-$data_param = mres($_POST['data_param']);
-$query_param = mres($_POST['query_param']);
+$data_param = $_POST['data_param'];
+$query_param = $_POST['query_param'];
 if (isset($data_param) && isset($query_param)) {
     $status  = 'ok';
     $message = 'Queried';

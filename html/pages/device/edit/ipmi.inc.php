@@ -4,9 +4,9 @@ use LibreNMS\Authentication\Auth;
 
 if ($_POST['editing']) {
     if (Auth::user()->hasGlobalAdmin()) {
-        $ipmi_hostname = mres($_POST['ipmi_hostname']);
-        $ipmi_username = mres($_POST['ipmi_username']);
-        $ipmi_password = mres($_POST['ipmi_password']);
+        $ipmi_hostname = $_POST['ipmi_hostname'];
+        $ipmi_username = $_POST['ipmi_username'];
+        $ipmi_password = $_POST['ipmi_password'];
 
         if ($ipmi_hostname != '') {
             set_dev_attrib($device, 'ipmi_hostname', $ipmi_hostname);

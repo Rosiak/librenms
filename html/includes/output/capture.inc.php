@@ -39,7 +39,7 @@ switch ($type) {
         $filename = "poller-$hostname.txt";
         break;
     case 'snmpwalk':
-        $device = device_by_name(mres($hostname));
+        $device = device_by_name($hostname);
 
         $cmd = gen_snmpwalk_cmd($device, '.', ' -OUneb');
 

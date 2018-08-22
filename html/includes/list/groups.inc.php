@@ -34,7 +34,7 @@ $params = [];
 
 if (!empty($_REQUEST['search'])) {
     $query .= ' WHERE `name` LIKE ?';
-    $params[] = '%' . mres($_REQUEST['search']) . '%';
+    $params[] = '%' . $_REQUEST['search'] . '%';
 }
 
 

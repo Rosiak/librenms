@@ -17,7 +17,7 @@ require realpath(__DIR__ . '/..') . '/includes/init.php';
 
 set_debug(strpos($_SERVER['PATH_INFO'], 'debug'));
 
-$report = mres($vars['report']);
+$report = $vars['report'];
 if (!empty($report) && file_exists("includes/reports/$report.csv.inc.php")) {
     if ($debug === false) {
         header('Content-Type: text/csv');

@@ -42,5 +42,5 @@ foreach ($poll_tabs as $tab) {
 echo '</ul>';
 
 if (isset($vars['tab'])) {
-    include_once 'pages/pollers/'.mres($vars['tab']).'.inc.php';
+    include_once 'pages/pollers/'. $vars['tab'] .'.inc.php';
 }

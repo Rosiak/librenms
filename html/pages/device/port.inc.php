@@ -253,6 +253,6 @@ print_optionbar_end();
 
 echo "<div style='margin: 5px;'>";
 
-require 'pages/device/port/'.mres($vars['view']).'.inc.php';
+require 'pages/device/port/'. $vars['view'] .'.inc.php';
 
 echo '</div>';

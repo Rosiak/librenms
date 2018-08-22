@@ -34,7 +34,7 @@ if (!Auth::user()->hasGlobalAdmin()) {
 
 $template_id = 0;
 
-$name = mres($vars['name']);
+$name = $vars['name'];
 if (isset($vars['template']) && empty(view(['template' => $vars['template']], [])->__toString())) {
     $message = 'Template failed to be parsed, please check the syntax';
 } elseif (!empty($name)) {
@@ -50,7 +50,7 @@ if (isset($vars['template']) && empty(view(['template' => $vars['template']], []
         if (substr($vars['rule_id'], -1, 1) != ",") {
             $vars['rule_id'] .= ",";
         }
-        if (dbUpdate(array('rule_id' => mres($vars['rule_id']), 'name' => $name), "alert_templates", "id = ?", array($vars['template_id'])) >= 0) {
+        if (dbUpdate(array('rule_id' => $vars['rule_id'], 'name' => $name), "alert_templates", "id = ?", array($vars['template_id'])) >= 0) {
             $message = "Updated template and rule id mapping";
         } else {
             $message ="Failed to update the template and rule id mapping";

@@ -17,9 +17,9 @@
 
 use LibreNMS\Authentication\Auth;
 
-$graph_type = mres($vars['graph_type']);
-$unit       = mres($vars['unit']);
-$class      = mres($vars['class']);
+$graph_type = $vars['graph_type'];
+$unit       = $vars['unit'];
+$class      = $vars['class'];
 
 $sql = " FROM `$table` AS S, `devices` AS D";
 
@@ -28,7 +28,7 @@ if (!Auth::user()->hasGlobalRead()) {
 }
 
 $sql .= " WHERE S.sensor_class=? AND S.device_id = D.device_id ";
-$param[] = mres($vars['class']);
+$param[] = $vars['class'];
 
 if (!Auth::user()->hasGlobalRead()) {
     $sql .= " AND D.device_id = P.device_id AND P.user_id = ?";

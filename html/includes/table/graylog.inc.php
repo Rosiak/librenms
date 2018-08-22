@@ -17,8 +17,8 @@
  * @author     LibreNMS Contributors
 */
 
-$filter_hostname = mres($vars['hostname']);
-$filter_range = mres($vars['range']);
+$filter_hostname = $vars['hostname'];
+$filter_range = $vars['range'];
 
 if (isset($searchPhrase) && !empty($searchPhrase)) {
     $query = 'message:"'.$searchPhrase.'"';

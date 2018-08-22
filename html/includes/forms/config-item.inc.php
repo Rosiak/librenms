@@ -25,23 +25,23 @@ if (!Auth::user()->hasGlobalAdmin()) {
     exit;
 }
 
-$action           = mres($_POST['action']);
-$config_group     = mres($_POST['config_group']);
-$config_sub_group = mres($_POST['config_sub_group']);
-$config_name      = mres($_POST['config_name']);
-$config_value     = mres($_POST['config_value']);
-$config_extra     = mres($_POST['config_extra']);
-$config_room_id   = mres($_POST['config_room_id']);
-$config_from      = mres($_POST['config_from']);
-$config_userkey   = mres($_POST['config_userkey']);
-$config_user      = mres($_POST['config_user']);
-$config_to        = mres($_POST['config_to']);
-$config_token     = mres($_POST['config_token']);
+$action           = $_POST['action'];
+$config_group     = $_POST['config_group'];
+$config_sub_group = $_POST['config_sub_group'];
+$config_name      = $_POST['config_name'];
+$config_value     = $_POST['config_value'];
+$config_extra     = $_POST['config_extra'];
+$config_room_id   = $_POST['config_room_id'];
+$config_from      = $_POST['config_from'];
+$config_userkey   = $_POST['config_userkey'];
+$config_user      = $_POST['config_user'];
+$config_to        = $_POST['config_to'];
+$config_token     = $_POST['config_token'];
 $status           = 'error';
 $message          = 'Error with config';
 
 if ($action == 'remove' || preg_match('/^remove-.*$/', $action)) {
-    $config_id = mres($_POST['config_id']);
+    $config_id = $_POST['config_id'];
     if (empty($config_id)) {
         $message = 'No config id passed';
     } else {

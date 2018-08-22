@@ -18,7 +18,7 @@ $bgp    = array();
 $limit  = $config['webui']['global_search_result_limit'];
 
 if (isset($_REQUEST['search'])) {
-    $search = mres($_REQUEST['search']);
+    $search = $_REQUEST['search'];
     header('Content-type: application/json');
     if (strlen($search) > 0) {
         $found = 0;

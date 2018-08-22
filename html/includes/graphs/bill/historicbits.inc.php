@@ -3,8 +3,8 @@
 use Amenadiel\JpGraph\Graph\Graph;
 use Amenadiel\JpGraph\Plot\LinePlot;
 
-$bill_hist_id = mres($vars['bill_hist_id']);
-$reducefactor = mres($vars['reducefactor']);
+$bill_hist_id = $vars['bill_hist_id'];
+$reducefactor = $vars['reducefactor'];
 
 if (is_numeric($bill_hist_id)) {
     if ($reducefactor < 2) {

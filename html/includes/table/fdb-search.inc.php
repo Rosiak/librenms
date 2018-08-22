@@ -34,7 +34,7 @@ if (is_numeric($vars['port_id'])) {
 }
 
 if (isset($vars['searchPhrase']) && !empty($vars['searchPhrase'])) {
-    $search = mres(trim($vars['searchPhrase']));
+    $search = trim($vars['searchPhrase']);
     $mac_search = '%'.str_replace(array(':', ' ', '-', '.', '0x'), '', $search).'%';
 
     if (isset($vars['searchby']) && $vars['searchby'] == 'vlan') {
@@ -42,13 +42,13 @@ if (isset($vars['searchPhrase']) && !empty($vars['searchPhrase'])) {
         $param[] = (int)$search;
     } elseif (isset($vars['searchby']) && $vars['searchby'] == 'ip') {
         $ip = $vars['searchPhrase'];
-        $ip_search = '%'.mres(trim($ip)).'%';
+        $ip_search = '%'. trim($ip) .'%';
         $sql .= " LEFT JOIN `ipv4_mac` AS `M` USING (`mac_address`)";
         $where  .= ' AND `M`.`ipv4_address` LIKE ?';
         $param[] = $ip_search;
     } elseif (isset($vars['searchby']) && $vars['searchby'] == 'dnsname') {
         $ip = gethostbyname($vars['searchPhrase']);
-        $ip_search = '%'.mres(trim($ip)).'%';
+        $ip_search = '%'. trim($ip) .'%';
         $sql .= " LEFT JOIN `ipv4_mac` AS `M` USING (`mac_address`)";
         $where  .= ' AND `M`.`ipv4_address` LIKE ?';
         $param[] = $ip_search;

@@ -36,5 +36,5 @@ foreach ($datas as $type) {
     $sep = ' | ';
 }
 print_optionbar_end();
-include 'pages/device/neighbours/' . mres($vars['selection']) . '.inc.php';
+include 'pages/device/neighbours/' . $vars['selection'] . '.inc.php';
 $pagetitle[] = 'Neighbours';

@@ -24,10 +24,10 @@ if (!is_numeric($_POST['template_id'])) {
     echo 'ERROR: No template selected';
     exit;
 } else {
-    $rules   = preg_split('/,/', mres($_POST['rule_id']));
+    $rules   = preg_split('/,/', $_POST['rule_id']);
     $success = false;
     foreach ($rules as $rule_id) {
-        $db_id = dbInsert(array('alert_rule_id' => $rule_id, 'alert_templates_id' => mres($_POST['template_id'])), 'alert_template_map');
+        $db_id = dbInsert(array('alert_rule_id' => $rule_id, 'alert_templates_id' => $_POST['template_id']), 'alert_template_map');
         if ($db_id > 0) {
             $success = true;
             $ids[]   = $db_id;

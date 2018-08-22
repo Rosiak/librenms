@@ -66,8 +66,8 @@ $term    = array();
 $current = false;
 if (isset($_GET['term'], $_GET['device_id'])) {
     $chk               = array();
-    $_GET['term']      = mres($_GET['term']);
-    $_GET['device_id'] = mres($_GET['device_id']);
+    $_GET['term']      = $_GET['term'];
+    $_GET['device_id'] = $_GET['device_id'];
     if (strstr($_GET['term'], '.')) {
         $term = explode('.', $_GET['term']);
         if ($term[0] == 'macros') {

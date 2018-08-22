@@ -1,13 +1,13 @@
 <?php
 
-$port = mres($_GET['id']);
+$port = $_GET['id'];
 if ($_GET['stat']) {
-    $stat = mres($_GET['stat']);
+    $stat = $_GET['stat'];
 } else {
     $stat = 'bits';
 }
 
-$sort = mres($_GET['sort']);
+$sort = $_GET['sort'];
 
 if (is_numeric($_GET['topn'])) {
     $topn = $_GET['topn'];

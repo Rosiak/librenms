@@ -82,7 +82,7 @@ if (!Auth::user()->hasGlobalRead()) {
     $param[] = Auth::id();
 }
 
-$query .= " WHERE packages.device_id = devices.device_id AND packages.name LIKE '%".mres($_POST['package'])."%' $sql_where GROUP BY packages.name";
+$query .= " WHERE packages.device_id = devices.device_id AND packages.name LIKE '%". $_POST['package'] ."%' $sql_where GROUP BY packages.name";
 
 $where = '';
 $ver = "";
@@ -90,7 +90,7 @@ $opt = "";
 
 if (!empty($_POST['arch'])) {
     $where  .= ' AND packages.arch = ?';
-    $param[] = mres($_POST['arch']);
+    $param[] = $_POST['arch'];
 }
 
 if (is_numeric($_REQUEST['device_id'])) {

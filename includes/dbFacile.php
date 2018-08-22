@@ -237,12 +237,12 @@ function dbDeleteOrphans($target_table, $parents)
         return false;
     }
 
-    $target_table = mres($target_table);
+    $target_table = $target_table;
     $sql = "DELETE T FROM `$target_table` T";
     $where = array();
 
     foreach ((array)$parents as $parent) {
-        $parent_parts = explode('.', mres($parent));
+        $parent_parts = explode('.', $parent);
         if (count($parent_parts) == 2) {
             list($parent_table, $parent_column) = $parent_parts;
             $target_column = $parent_column;

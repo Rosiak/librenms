@@ -13,7 +13,7 @@ if ($_POST['editing']) {
             Device::find($device['device_id'])->parents()->sync($parents);
         }
 
-        $override_sysLocation_bool = mres($_POST['override_sysLocation']);
+        $override_sysLocation_bool = $_POST['override_sysLocation'];
         if (isset($_POST['sysLocation'])) {
             $override_sysLocation_string = $_POST['sysLocation'];
         }

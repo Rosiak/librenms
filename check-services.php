@@ -48,9 +48,9 @@ if ($options['h']) {
         $where = "AND `S`.`device_id` = ".$options['h'];
     } else {
         if (preg_match('/\*/', $options['h'])) {
-            $where = "AND `hostname` LIKE '".str_replace('*', '%', mres($options['h']))."'";
+            $where = "AND `hostname` LIKE '".str_replace('*', '%', $options['h'])."'";
         } else {
-            $where = "AND `hostname` = '".mres($options['h'])."'";
+            $where = "AND `hostname` = '". $options['h'] ."'";
         }
     }
 }

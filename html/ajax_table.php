@@ -34,8 +34,8 @@ if (isset($_REQUEST['sort']) && is_array($_POST['sort'])) {
     }
 }
 
-$searchPhrase = mres($_REQUEST['searchPhrase']);
-$id           = mres($_REQUEST['id']);
+$searchPhrase = $_REQUEST['searchPhrase'];
+$id           = $_REQUEST['id'];
 $response     = array();
 
 if (isset($id)) {

@@ -199,8 +199,8 @@ foreach ($datas as $type) {
 
 print_optionbar_end();
 
-if (is_file('pages/device/health/'.mres($vars['metric']).'.inc.php')) {
-    include 'pages/device/health/'.mres($vars['metric']).'.inc.php';
+if (is_file('pages/device/health/'. $vars['metric'] .'.inc.php')) {
+    include 'pages/device/health/'. $vars['metric'] .'.inc.php';
 } else {
     foreach ($datas as $type) {
         if ($type != 'overview') {

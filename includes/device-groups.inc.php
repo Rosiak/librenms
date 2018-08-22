@@ -94,7 +94,7 @@ function GenGroupSQL($pattern, $search = '', $extra = 0)
             if (starts_with($word, '%') && str_contains($word, '.')) {
                 list($table, $column) = explode('.', $word, 2);
                 $table = str_replace('%', '', $table);
-                $tables[] = mres(str_replace('(', '', $table));
+                $tables[] = str_replace('(', '', $table);
                 $pattern = str_replace($word, $table . '.' . $column, $pattern);
             }
         }
